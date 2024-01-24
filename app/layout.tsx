@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Zusammenpacken",
   description: "Online Pack App",
-  icons:"favicon.ico",
+  icons: "favicon.ico",
 };
 
 export default function RootLayout({
@@ -20,8 +20,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Sidebar />
-        {children}
-        </body>
+        <div className="p-2 pl-16 flex flex-col items-center justify-center h-screen w-full">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
