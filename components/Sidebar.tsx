@@ -8,11 +8,17 @@ import SidebarItem from './SidebarItem';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  className?: string;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({
+  className,
+}) => {
 
   const router = useRouter();
   return (
-    <aside className="w-16 bg-gray-800 text-white fixed h-screen z-10">
+    <aside className={className}>
       <div className="flex flex-col justify-between h-full w-full">
         <nav aria-label="Main">
           <div className='h-2'></div> {/*space before logo, improve?*/}
