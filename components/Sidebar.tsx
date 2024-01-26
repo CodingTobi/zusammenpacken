@@ -28,7 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </div>
           <SidebarItem icon={<AiFillHome />} label="Test1" />
           <SidebarItem icon={<IoMdPeople />} label="Test2" />
-          <SidebarItem icon={<HiPlusCircle />} label="Test3" />
+          <SidebarItem icon={<HiPlusCircle onClick={() => router.push('/rooms/new')}/>} label="Test3" />
 
         </nav>
         <footer className="mb-4">

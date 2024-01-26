@@ -8,10 +8,10 @@ import { useUrl } from 'nextjs-current-url';
 const Page = () => {
     const searchParams = useSearchParams();
     const [isQROpen, setQROpen] = useState(false);
-    const { href } = useUrl() ?? {}; 
+    const { href } = useUrl() ?? { href: '' }; 
 
     return (
-        <div className='pl-2 flex flex-col gap-2 h-full w-full'>
+        <div className='flex flex-col gap-2 h-full w-full'>
             <div className='flex bg-blue-300 h-1/5'>
                 <p className='text-center m-auto'>Room ID: {searchParams.get("id")}</p>
                 <button onClick={() => setQROpen(true)}>Open QR</button>
