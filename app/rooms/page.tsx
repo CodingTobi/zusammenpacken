@@ -4,11 +4,13 @@ import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import QrCode from '@/components/QrCode';
 import { useUrl } from 'nextjs-current-url';
+import useUser from '../useUser';
 
 const Page = () => {
     const searchParams = useSearchParams();
     const [isQROpen, setQROpen] = useState(false);
     const { href } = useUrl() ?? { href: '' }; 
+    const { data, isLoading } = useUser();
 
     return (
         <div className='flex flex-col gap-2 h-full w-full'>
@@ -19,6 +21,18 @@ const Page = () => {
             <div className='flex h-full bg-gray-400'>
                 <h1 className='text-2xl m-auto'> 
                     Inhalt
+                    <div>
+                        {isLoading ? (
+                            <div>Loading...</div>
+                        ) : data?.success ? (
+                            <div>
+                                <div>Logged in as {data.userId}</div>
+                                <div>Room ID: {data.roomId}</div>
+                            </div>
+                        ) : (
+                            <div>Not logged in</div>
+                        )}
+                    </div>
                 </h1>
             </div>
             <QrCode isOpen={isQROpen} onClose={() => setQROpen(false)} title='toast' link={href} />
