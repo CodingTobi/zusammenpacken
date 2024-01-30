@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { validateRoomId } from '@/utils/helpers'
 
 const JoinRoomPage: React.FC = () => {
     const [roomName, setRoomName] = useState('');
@@ -9,7 +10,11 @@ const JoinRoomPage: React.FC = () => {
 
     const handleJoinRoom = () => {
         if (!roomName) return;
+        if (validateRoomId(roomName)) {
         router.push(`/rooms?id=${roomName}`);
+        } else {
+            alert("Invalid Room ID");
+        }
     };
 
 
@@ -21,6 +26,7 @@ const JoinRoomPage: React.FC = () => {
                 value={roomName}
                 onChange={(e) => setRoomName(e.target.value)}
                 placeholder="Enter room id"
+                onKeyDown={(e) => { if (e.key === 'Enter') handleJoinRoom() }}
             />
             <button onClick={handleJoinRoom}>Join Room</button>
             <p>OR</p>

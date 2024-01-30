@@ -27,7 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             <Image className='flex m-auto w-[90%]' src="/../favicon.ico" alt="Logo" width={256} height={256} />
           </div>
           <SidebarItem icon={<AiFillHome />} label="Test1" />
-          <SidebarItem icon={<IoMdPeople />} label="Test2" />
+          <SidebarItem icon={<IoMdPeople onClick={() => router.push('/join')}/>} label="Test2" />
           <SidebarItem icon={<HiPlusCircle onClick={() => router.push('/rooms/new')}/>} label="Test3" />
 
         </nav>
