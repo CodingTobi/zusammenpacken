@@ -2,6 +2,8 @@ const express = require('express')
 const http = require('http')
 const app = express()
 const server = http.createServer(app)
+const port = process.env.SOCKET_IO_PORT || 3001
+console.log("env", process.env.SOCKET_IO_PORT);
 
 import { Server } from 'socket.io'
 const io = new Server(server, {
@@ -17,6 +19,6 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(3001, () => {
-  console.log('listening on *:3001')
+server.listen(port, () => {
+  console.log(`listening on *:${port}`)
 })
