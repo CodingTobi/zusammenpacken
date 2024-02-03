@@ -19,25 +19,43 @@ const Page = () => {
     const { userId, roomId, isAuthenticated, isRoomOwner, isLoading, login, register } = authContext || {}; // Destructure the AuthContext values with a conditional check
 
     useEffect(() => {
-            if (!page_roomId || !validateRoomId(page_roomId))
+        if (isLoading) return;
+        if (!page_roomId || !validateRoomId(page_roomId))
             router.replace("/join");
-    }, [page_roomId, router]);
+    }, [page_roomId, router, isLoading]);
+
+    useEffect(() => {
+        if (isLoading === undefined) {
+            try {
+                login();
+            } catch (error) {
+                console.error('Login failed', error);
+            }
+        } else {
+            if (!roomId && page_roomId) {
+                register(page_roomId, false);
+            }
+            console.log(page_roomId, roomId);
+            if (page_roomId && roomId && page_roomId != roomId) {
+                router.replace(`/rooms/?id=${roomId}`);
+                alert('You are already in a room, leave the room to join another one.');
+            }
+        }
+    }, [isLoading, router, login, register, page_roomId, roomId]);
 
     useEffect(() => {
         if (!isLoading)
             router.refresh();
     }, [isLoading, router]);
 
-    useEffect(() => {
-        register(page_roomId || "", true); // Call the register function from the AuthContext
-        
-    }, [page_roomId, register]);
-
     return (
         <div className='flex flex-col gap-2 h-full w-full'>
             <div className='flex bg-blue-300 h-1/5'>
                 <p className='text-center m-auto'>Room ID: {page_roomId}</p>
-                <button onClick={() => setQROpen(true)}>Open QR</button>
+                <button
+                    className='w-10 h-10 self-center m-7 rounded-md bg-white font-bold transition hover:scale-105 hover:opacity-80'
+                    onClick={() => setQROpen(true)}
+                >QR</button>
             </div>
             <div className='flex h-full bg-gray-400'>
                 <h1 className='text-2xl m-auto'>
