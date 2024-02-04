@@ -4,7 +4,6 @@ import React, { use, useEffect, useState, useContext } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import QrCode from '@/components/QrCode';
 import { useUrl } from 'nextjs-current-url';
-import useUser from '../useUser';
 
 import { validateRoomId } from '@/utils/helpers';
 import { useAuth } from '@/contexts/AuthContext'; // Import the AuthContext
@@ -20,8 +19,10 @@ const Page = () => {
 
     useEffect(() => {
         if (isLoading) return;
-        if (!page_roomId || !validateRoomId(page_roomId))
+        if (!validateRoomId(page_roomId)) {
+            console.error('Invalid room ID', page_roomId, "redirecting to /join");
             router.replace("/join");
+        }
     }, [page_roomId, router, isLoading]);
 
     useEffect(() => {

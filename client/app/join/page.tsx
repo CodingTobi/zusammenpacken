@@ -13,20 +13,21 @@ const JoinRoomPage: React.FC = () => {
     const router = useRouter();
     const authContext = useAuth(); // Get the AuthContext values
     const { isAuthenticated, isLoading, register, roomId } = authContext || {}; // Destructure the AuthContext values with a conditional check
+    const [errorText, setErrorText] = useState('');
 
     const handleJoinRoom = () => {
         if (!roomNameField) return;
         if (validateRoomId(roomNameField)) {
             router.push(`/rooms?id=${roomNameField}`);
         } else {
-            alert("Invalid Room ID");
+            setErrorText('Invalid room id');
         }
     };
 
     const handleCreateRoom = () => {
         const newRoomId = generateRoomId();
         register(newRoomId, true)
-        router.push(`/rooms?id=${roomNameField}`);
+        router.push(`/rooms?id=${newRoomId}`);
     };
 
     return (
@@ -39,7 +40,9 @@ const JoinRoomPage: React.FC = () => {
                     onChange={(e) => setRoomName(e.target.value)}
                     placeholder="Enter room id"
                     onKeyDown={(e) => { if (e.key === 'Enter') handleJoinRoom() }}
+                    onFocus={() => setErrorText('')}
                 />
+                <div className="text-red-400 bg-black/10 px-0.5 rounded-md transition-all">{errorText}</div>
                 <button
                     disabled={isAuthenticated}
                     className="disabled:pointer-events-none m-3 p-2 w-fit rounded-full bg-green-500 transition hover:opacity-80 hover:scale-105"

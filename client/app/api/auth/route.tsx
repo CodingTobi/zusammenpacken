@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
     } catch (error) {
         // Bei Fehler (z.B. Token abgelaufen), neues Token erstellen
         console.error(error);
-        throw new Error("Authentication failed1");
+        throw new Error("POST: Authentication failed");
     }
 }
 
@@ -60,7 +60,7 @@ export async function GET(req: NextRequest) {
         }
         const decoded = jwt.verify(token.value, getSecret());
         if (typeof decoded === 'string') {
-            throw new Error('Invalid token');
+            throw new Error(`Invalid token (${decoded})`);
         }
         return new NextResponse(JSON.stringify({ success: true, userId: decoded.userId, roomId: decoded.roomId }), {
             status: 200,
@@ -70,7 +70,7 @@ export async function GET(req: NextRequest) {
         });
     } catch (error) {
         // Token is not valid or expired
-        return new NextResponse(JSON.stringify({ success: false, message: 'Authentication failed2' }), {
+        return new NextResponse(JSON.stringify({ success: false, message: 'GET: Not logged in' }), {
             status: 401,
             headers: {
                 'Content-Type': 'application/json',
