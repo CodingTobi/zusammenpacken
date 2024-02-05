@@ -7,4 +7,5 @@ export type PackItemType = {
 export type PackItemProps = {
     item: PackItemType;
     onCheck: (id: string | number, checked: boolean) => void;
+    onEdit: (id: string | number, text: string) => void;
 };
