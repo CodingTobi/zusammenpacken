@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 const minRoomIdLength = 10;
 const maxRoomIdLength = 16;
 
-export function validateRoomId(roomId:string | string[] | undefined) {
+export function validateRoomId(roomId:string | string[] | undefined | null) {
     /*checks if the room id is a string, is not empty, and is between 32 and 36 characters long*/
 
     if (roomId && typeof roomId === 'string' && roomId != "" && roomId.length <= maxRoomIdLength && roomId.length >= minRoomIdLength) {
