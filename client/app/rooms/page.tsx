@@ -83,7 +83,7 @@ const Page = () => {
                 <PackContainer />
                 <PackContainer />
                 <PackContainer />
-                <FaPlus className='size-8 self-center pl-1' />
+                <FaPlus className='m-12 size-8' />
             </div>
         </div>
     );

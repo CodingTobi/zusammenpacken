@@ -3,6 +3,7 @@ import { useState } from 'react';
 import PackItem from './PackItem';
 import { PackItemType } from '../types/packTypes';
 import { FaPlus } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
 const initialItems: PackItemType[] = [
     { id: 1, text: 'Item 1', checked: false },
@@ -12,17 +13,27 @@ const initialItems: PackItemType[] = [
 
 const PackContainer: React.FC = () => {
     const [items, setItems] = useState<PackItemType[]>(initialItems);
+    const [title, setTitle] = useState<string>("Pack Title"); 
 
     const handleCheckChange = (id: string | number, checked: boolean) => {
         setItems(items.map(item => (item.id === id ? { ...item, checked } : item)));
     };
 
+    const router = useRouter();
+
+    const handleAddItem = () => {
+        const id = items.length + 1;
+        setItems([...items, { id, text: `Item ${id}`, checked: false }]);
+        router.refresh();
+    }
+
     return (
-        <div className="flex flex-col items-stretch w-72 max-w-md space-y-1 bg-slate-200 p-2 m-2 rounded-md"> {/* Adjust width as needed */}
+        <div className="flex flex-col items-stretch w-72 max-w-md space-y-1 bg-slate-200 p-2 m-2 rounded-md h-fit"> {/* Adjust width as needed */}
+            <input type='text' value={title} onChange={(ev) => setTitle(ev.target.value)} className="text-center"/>
             {items.map((item) => (
                 <PackItem key={item.id} item={item} onCheck={handleCheckChange} />
             ))}
-            <div className="flex items-center justify-center bg-blue-400 p-1">
+            <div onClick={handleAddItem} className="flex items-center justify-center bg-blue-400 p-1 rounded-md">
                 <FaPlus />
             </div>
         </div>
