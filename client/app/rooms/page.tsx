@@ -7,6 +7,8 @@ import { useUrl } from 'nextjs-current-url';
 
 import { validateRoomId } from '@/utils/helpers';
 import { useAuth } from '@/contexts/AuthContext'; // Import the AuthContext
+import PackContainer from '@/components/PackContainer';
+import { FaPlus } from 'react-icons/fa';
 
 const Page = () => {
     const searchParams = useSearchParams();
@@ -50,7 +52,9 @@ const Page = () => {
     }, [isLoading, router]);
 
     return (
+
         <div className='flex flex-col gap-2 h-full w-full'>
+            <QrCode isOpen={isQROpen} onClose={() => setQROpen(false)} title={`Join ID: ${roomId}`} link={href} />
             <div className='flex bg-blue-300 h-1/5'>
                 <p className='text-center m-auto'>Room ID: {page_roomId}</p>
                 <button
@@ -58,9 +62,9 @@ const Page = () => {
                     onClick={() => setQROpen(true)}
                 >QR</button>
             </div>
-            <div className='flex h-full bg-gray-400'>
+            <div className='flex bg-gray-400'>
                 <h1 className='text-2xl m-auto'>
-                    Inhalt
+
                     <div>
                         {isLoading ? (
                             <div>Loading...</div>
@@ -75,7 +79,12 @@ const Page = () => {
                     </div>
                 </h1>
             </div>
-            <QrCode isOpen={isQROpen} onClose={() => setQROpen(false)} title={`Join ID: ${roomId}`} link={href} />
+            <div className="flex space-x-4">
+                <PackContainer />
+                <PackContainer />
+                <PackContainer />
+                <FaPlus className='size-8 self-center pl-1' />
+            </div>
         </div>
     );
 };
