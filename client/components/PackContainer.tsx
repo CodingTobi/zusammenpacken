@@ -1,39 +1,40 @@
 import React from 'react';
-import { useState } from 'react';
 import PackItem from './PackItem';
-import { PackItemType } from '../types/packTypes';
+import { PackContainerProps } from '../types/packTypes';
 import { FaPlus } from 'react-icons/fa';
-import { useRouter } from 'next/navigation';
+import { socket } from '../utils/socket';
 
-const initialItems: PackItemType[] = [
-    { id: 1, text: 'Item 1', checked: false },
-    { id: 2, text: 'Item 2', checked: false },
-    // Add more items as needed
-];
+//CONFIG
+const ITEM_DEFAULT_TEXT = "New Item";
+const ITEM_DEFAULT_CHECKED = false;
 
-const PackContainer: React.FC = () => {
-    const [items, setItems] = useState<PackItemType[]>(initialItems);
-    const [title, setTitle] = useState<string>("Pack Title"); 
+const PackContainer: React.FC<PackContainerProps> = ({ containerId, title, items }) => {
 
+    //Item Handlers
     const handleCheckChange = (id: string | number, checked: boolean) => {
-        setItems(items.map(item => (item.id === id ? { ...item, checked } : item)));
+        console.log("PackContainer/handleCheckChange _> Item: Id: ", id, " | Checked: ", checked);
+        socket.emit("item:check", {containerId, id, checked });
+    };
+    const handleEditText = (id: string | number, text: string) => {
+        socket.emit("item:edit", {containerId, id, text });
     };
 
-    const handleEditText = (id: string | number, text: string) => {
-        setItems(items.map(item => (item.id === id ? { ...item, text } : item)));
-    }
-
-    const router = useRouter();
-
+    //Container Handlers
     const handleAddItem = () => {
-        const id = items.length + 1;
-        setItems([...items, { id, text: `Item ${id}`, checked: false }]);
-        router.refresh();
+        socket.emit("container:addItem", { containerId: containerId, text: ITEM_DEFAULT_TEXT, checked: ITEM_DEFAULT_CHECKED });
     }
+    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        socket.emit("container:editTitle", { containerId: containerId, title: event.target.value });
+    }
+
+    //DEBUG
+    items.map((item) => (
+        console.log("Item: Id: ", item.id, " | Text: ", item.text, " | Checked: ", item.checked, " | ContainerId: ", containerId, " | Title: ", title)
+    ));
 
     return (
-        <div className="flex flex-col items-stretch w-72 max-w-md space-y-1 bg-slate-200 p-2 m-2 rounded-md h-fit"> {/* Adjust width as needed */}
-            <input type='text' value={title} onChange={(ev) => setTitle(ev.target.value)} className="text-center"/>
+        <div className="flex flex-col items-stretch w-72 max-w-md space-y-1 bg-slate-200 p-2 m-2 rounded-md h-fit">
+            <input type='text' value={title} onChange={handleTitleChange} className="text-center"/>
             {items.map((item) => (
                 <PackItem key={item.id} item={item} onCheck={handleCheckChange} onEdit={handleEditText} />
             ))}

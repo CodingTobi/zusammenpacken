@@ -4,12 +4,15 @@ import { PackItemProps } from '../types/packTypes';
 const PackItem: FC<PackItemProps> = ({ item, onCheck, onEdit }) => {
   const [editMode, setEditMode] = useState(false);
   const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("PackItem/handleCheckChange _> Item: Id: ", item.id, " | Text: ", item.text, " | Checked: ", event.target.checked);
     onCheck(item.id, event.target.checked);
   };
 
   const handleEdit = (event: React.ChangeEvent<HTMLInputElement>) => {
     onEdit(item.id, event.target.value);
   }
+
+  console.log("Item: Id: ", item.id, " | Text: ", item.text, " | Checked: ", item.checked);
 
 
   return (
