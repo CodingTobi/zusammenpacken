@@ -86,8 +86,9 @@ const Page = () => {
         });
     });
 
-    const addTest = () => {
-        socket.emit('update', { id: 5, text: userId, checked: true });
+    const addContainer = () => {
+        //TODO: add room functionality
+        socket.emit('room:addContainer', { roomId: 0, title: 'New Container' });
         console.log('sent');
     }
 
@@ -118,11 +119,11 @@ const Page = () => {
                     </div>
                 </h1>
             </div>
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 overflow-scroll ">
                 {Object.entries(itemsState).map(([containerKey, containerValue]) => (
                     <PackContainer containerId={containerKey} title={containerValue.title} items={containerValue.items} />
                 ))}
-                <FaPlus className='m-12 size-8' onClick={addTest} />
+                <div><FaPlus className='m-12 size-8' onClick={addContainer} /></div>
             </div>
         </div>
     );

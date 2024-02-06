@@ -87,6 +87,19 @@ io.on('connection', (socket) => {
     console.log('updateState', itemsState);
   });
 
+  socket.on('room:addContainer', ({ roomId, title }) => {
+    //TODO: implement room functionality
+    const containerId = Math.random().toString(36).slice(7);
+    itemsState[containerId] = {
+      id: containerId,
+      title,
+      items: []
+    };
+    io.emit('init', itemsState);
+    console.log('updateState', itemsState);
+  });
+
+
   socket.on('disconnect', () => {
     console.log('user disconnected')
   })

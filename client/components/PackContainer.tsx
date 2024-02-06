@@ -33,7 +33,7 @@ const PackContainer: React.FC<PackContainerProps> = ({ containerId, title, items
     ));
 
     return (
-        <div className="flex flex-col items-stretch w-72 max-w-md space-y-1 bg-slate-200 p-2 m-2 rounded-md h-fit">
+        <div className="flex flex-col w-72 min-w-72 space-y-1 bg-slate-200 p-2 m-2 rounded-md h-fit">
             <input type='text' value={title} onChange={handleTitleChange} className="text-center"/>
             {items.map((item) => (
                 <PackItem key={item.id} item={item} onCheck={handleCheckChange} onEdit={handleEditText} />

@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { PackItemProps } from '../types/packTypes';
+import { MdEdit } from 'react-icons/md';
 
 const PackItem: FC<PackItemProps> = ({ item, onCheck, onEdit }) => {
   const [editMode, setEditMode] = useState(false);
@@ -23,7 +24,7 @@ const PackItem: FC<PackItemProps> = ({ item, onCheck, onEdit }) => {
           <input type='text' className='flex-1' value={item.text} autoFocus onBlur={() => setEditMode(!editMode)} onChange={handleEdit} /> :
           <>
             <span className="flex-1">{item.text}</span>
-            <button className='float-right px-2' onClick={() => setEditMode(!editMode)}>Edit</button>
+            <button className='float-right px-2' onClick={() => setEditMode(!editMode)}><MdEdit/></button>
           </>
       }
     </div>
