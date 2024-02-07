@@ -72,6 +72,14 @@ io.on('connection', (socket) => {
     console.log('updateState', itemsState);
   });
 
+  socket.on('item:delete', ({ containerId, id }) => {
+    console.log('item:delete', containerId, id);
+    itemsState[containerId].items = itemsState[containerId].items.filter((item) => item.id !== id);
+    io.emit('init', itemsState);
+    console.log('updateState', itemsState);
+  });
+
+
   socket.on('container:addItem', ({ containerId, text, checked }) => {
     console.log('container:addItem', containerId, text, checked);
     const id = Math.random().toString(36).slice(7);
@@ -83,6 +91,13 @@ io.on('connection', (socket) => {
   socket.on('container:editTitle', ({ containerId, title }) => {
     console.log('container:editTitle', containerId, title);
     itemsState[containerId].title = title;
+    io.emit('init', itemsState);
+    console.log('updateState', itemsState);
+  });
+
+  socket.on('container:delete', ({ containerId }) => {
+    console.log('container:delete', containerId);
+    delete itemsState[containerId];
     io.emit('init', itemsState);
     console.log('updateState', itemsState);
   });
