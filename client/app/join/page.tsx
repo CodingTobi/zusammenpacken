@@ -16,8 +16,10 @@ const JoinRoomPage: React.FC = () => {
     const [errorText, setErrorText] = useState('');
 
     const handleJoinRoom = () => {
-        if (!roomNameField) return;
-        if (validateRoomId(roomNameField)) {
+        if (!roomNameField) {
+            setErrorText('Please Enter a room number')
+            return;
+        } else if (validateRoomId(roomNameField)) {
             router.push(`/rooms?id=${roomNameField}`);
         } else {
             setErrorText('Invalid room id');
@@ -31,10 +33,11 @@ const JoinRoomPage: React.FC = () => {
     };
 
     return (
-        <div className='m-auto'>
-            <fieldset disabled={isAuthenticated} className='flex flex-col items-center gap-2 w-52 border-2 p-4 disabled:opacity-60'>
+        <div className='mt-[20%] mx-auto'>
+            <fieldset disabled={isAuthenticated} className='flex flex-col items-center gap-2 w-52 border-2 rounded-sm p-4 disabled:opacity-60'>
                 <h1 className='text-2xl'>Join Room</h1>
                 <input
+                    className='rounded-md pl-1'
                     type="text"
                     value={roomNameField}
                     onChange={(e) => setRoomName(e.target.value)}

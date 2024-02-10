@@ -38,7 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             onClick={() => router.push('/')}>
             <Image className='flex m-auto w-[90%]' src="/../favicon.ico" alt="Logo" width={256} height={256} />
           </div>
-          <SidebarItem icon={<AiFillHome />} label="Test1" />
+          <SidebarItem icon={<AiFillHome />} label="Test1" onClick={() => router.push('/')}/>
           <SidebarItem icon={<HiPlusCircle />} label="Test3" onClick={() => router.push('/join')} />
 
 

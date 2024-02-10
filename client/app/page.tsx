@@ -19,6 +19,14 @@ export default function Home() {
           <Image src="/hompage_logos/logo_typescript.png" alt="Logo" width={64} height={64} />
         </div>
       </div>
+      <div>
+        <p className="text-center text-slate-300 font-semibold text-lg py-4">
+          Zusammenpacken ermöglicht es dir, deine Reise mit anderen zu planen und sicherzustellen, dass du nichts vergisst. Egal ob du alleine reist oder mit Freunden, unsere App hilft dir, organisiert zu bleiben. Jetzt loslegen und deine nächste Reise stressfrei genießen!
+        </p>
+        <Image className="hidden md:block" src={"/img/zusammenpacken_example.png"} alt="Zusammenpacken Beispiel" width={2705} height={646} />
+        <Image className="block md:hidden" src={"/img/zusammenpacken_example_mobile.png"} alt="Zusammenpacken Beispiel" width={931} height={646} />
+        
+      </div>
       <p className="m-4">Betreut durch <a className="transition hover:text-green-500" href="https://www.cs.hs-rm.de/~iwer/">Prof. Dr. Eva-Maria Iwer</a></p>
     </div>
   );

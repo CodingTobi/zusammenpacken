@@ -9,7 +9,9 @@ interface SidebarItemProps {
 const SidebarItem: React.FC<SidebarItemProps> = ({ icon, label, onClick }) => {
     return (
         <button
-            className="flex items-center w-full p-3 transition-colors duration-200 ease-in-out transform hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex items-center w-full p-3 
+                transition-colors duration-200 ease-in-out transform 
+                hover:bg-slate-400 focus:border-t-stone-100"
             onClick={onClick}
             aria-label={label}
         >

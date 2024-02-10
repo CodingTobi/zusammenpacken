@@ -104,7 +104,7 @@ const Page = () => {
                 >QR</button>
             </div>
             <div className='flex bg-gray-400'>
-                <h1 className='text-2xl m-auto'>
+                {/* <h1 className='text-2xl m-auto'>
                     <div>
                         {isLoading ? (
                             <div>Loading...</div>
@@ -117,9 +117,9 @@ const Page = () => {
                             <div>Not logged in</div>
                         )}
                     </div>
-                </h1>
+                </h1> */}
             </div>
-            <div className="flex space-x-4 overflow-scroll ">
+            <div className="flex space-x-4 overflow-scroll md:hide-scroll">
                 {Object.entries(itemsState).map(([containerKey, containerValue]) => (
                     <PackContainer containerId={containerKey} title={containerValue.title} items={containerValue.items} />
                 ))}
